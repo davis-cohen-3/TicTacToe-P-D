@@ -1,16 +1,35 @@
 #include <iostream>
 #include <vector>
 
-int arr[3][3];
+char arr[3][3];
 
-int *fillarr(){
+struct Position{
+    int row;
+    int col;
+    Position() {
+		row = 0;
+		col = 0;
+	}
+
+	Position(int r, int c) {
+		row = r; 
+		col = c;
+	}
+	bool operator==(const Position &other) {
+		return row == other.row && col == other.col;
+	}
+};
+
+char *fillarr(){
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
-            arr[i][j] = 0;
+            arr[i][j] = '-';
         }
     }
     return &arr[0][0];
 }
+
+
 
 void DisplayBoard(){
     for(int i=0;i<3;i++){
@@ -21,8 +40,23 @@ void DisplayBoard(){
     }
 }
 
+Position GetPlayerChoice(Position p){
+    std::string pos;
+    Position pos_;
+    std::string pos2;
+    std::cout << "Enter vertical coordinate (between 0-2): " << std::endl;
+    std::cin >> pos;
+    std::cout << "Enter horizontal coordinate (between 0-2): " << std::endl;
+    std::cin >> pos2;
+    int p1 = std::stoi(pos);
+    int p2 = std::stoi(pos2);
+    pos_.col = p2;
+    pos_.row = p1;
+    return pos_;
+}
+
 int main(){
-    int * arr = fillarr();
+    char * arr = fillarr();
     DisplayBoard();
     return 0;
 }
