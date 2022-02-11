@@ -32,12 +32,9 @@ char *fillarr(){
     return &arr[0][0];
 }
 
-
-
 void DisplayBoard(){
     for(int i=0;i<3;i++){
         for(int j=0;j<3;j++){
-            arr[i][j] = '-';
             std::cout << arr[i][j];
         }
         std::cout << std::endl;
@@ -48,13 +45,13 @@ void PlaceMarker(Position p, char marker) {
     arr[p.row][p.col] = marker;
 }
 
-Position GetPlayerChoice(Position p){
+Position GetPlayerChoice(){
     std::string pos;
     Position pos_;
     std::string pos2;
-    std::cout << "Enter vertical coordinate (between 0-2): " << std::endl;
+    std::cout << "Enter a row coordinate (between 0-2): " << std::endl;
     std::cin >> pos;
-    std::cout << "Enter horizontal coordinate (between 0-2): " << std::endl;
+    std::cout << "Enter a column coordinate (between 0-2): " << std::endl;
     std::cin >> pos2;
     int p1 = std::stoi(pos);
     int p2 = std::stoi(pos2);
@@ -64,7 +61,16 @@ Position GetPlayerChoice(Position p){
 }
 
 int main(){
-    char * arr = fillarr();
+    fillarr();
+    for(int i = 0; i < 9; i++) {
+        DisplayBoard();
+        Position p = GetPlayerChoice();
+        if(i % 2 == 0) {
+            PlaceMarker(p, 'X');
+        } else {
+            PlaceMarker(p, 'O');
+        }
+    }
     DisplayBoard();
     return 0;
 }
